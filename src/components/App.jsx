@@ -4,8 +4,8 @@ import '../style.css';
 import { LOCALSTORAGE_AUTH_KEY } from '../utils/constants';
 import FullPageSpinner from './FullPageSpinner';
 
-const Dashboard = React.lazy(() =>
-  import(/* webpackPrefetch: true */ './Dashboard'),
+const AuthenticatedApp = React.lazy(() =>
+  import(/* webpackPrefetch: true */ './AuthenticatedApp'),
 )
 const Landing = React.lazy(() => import('./Landing'))
 
@@ -14,10 +14,8 @@ function App() {
   const { isAuthenticated } = state;
 
   useEffect(() => {
-    console.log(state);
     // if user in found in localstorage
     const user = JSON.parse(localStorage.getItem(LOCALSTORAGE_AUTH_KEY) || null);
-    console.log(user);
     if (user) {
       dispatch({
         type: 'LOGIN_SUCCESS',
@@ -32,7 +30,7 @@ function App() {
 
   return (
     <React.Suspense fallback={<FullPageSpinner />}>
-      {isAuthenticated ? <Dashboard /> : <Landing />}
+      {isAuthenticated ? <AuthenticatedApp /> : <Landing />}
     </React.Suspense>
   );
 }

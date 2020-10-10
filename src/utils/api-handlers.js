@@ -34,10 +34,10 @@ async function registerApi({ email, password }) {
   }
 }
 
-async function getCustomers() {
+async function getCustomers(pageNumber) {
   console.log(`inside getCustomers`);
   try {
-    const response = await fetch(`${SERVER_URL}/api/users?page=1`);
+    const response = await fetch(`${SERVER_URL}/api/users?page=${pageNumber}`);
     return await response.json();
   } catch (error) {
     throw Error(error);

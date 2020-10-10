@@ -15,7 +15,7 @@ function Navbar() {
     <nav className="navbar navbar-light bg-light">
       <p className="navbar-brand">Sam-TruckX</p>
       <div className="form-inline">
-        <span className="pr-3">{email}</span>
+        <span className="pr-3">Hello {email}</span>
         <button
           className="btn btn-outline-danger my-2 my-sm-0"
           type="button"

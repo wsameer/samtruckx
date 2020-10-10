@@ -1,4 +1,6 @@
 import React, { createContext, useMemo, useReducer } from 'react';
+import { BrowserRouter as Router } from "react-router-dom";
+
 import { LOCALSTORAGE_AUTH_KEY } from '../utils/constants';
 
 export const AuthContext = createContext();
@@ -100,14 +102,14 @@ function AuthProvider(props) {
   // state has these values
   // const { email, password, isLoading, error, isAuthenticated, token } = state;
 
-  const contextValue = useMemo(() => {
-    return { state, dispatch };
-  }, [state, dispatch]);
+  const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
 
   return (
-    <AuthContext.Provider value={contextValue}>
-      {props.children}
-    </AuthContext.Provider>
+    <Router>
+      <AuthContext.Provider value={contextValue}>
+        {props.children}
+      </AuthContext.Provider>
+    </Router>
   );
 }
 
