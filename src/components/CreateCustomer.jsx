@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import * as appApi from '../utils/api-handlers';
 import { DashboardContext } from '../context/DashboardContext';
-import AlertMessage from './AlertMessage';
-import CustomerForm from './CustomerForm';
+import { AlertMessage, CustomerForm } from './shared';
 
 function CreateCustomer(props) {
 
   const { state, dispatch } = React.useContext(DashboardContext);
-  const { customerToEdit, isRequestPending, addCustomerError } = state;
+  const { showSuccessNotification, isRequestPending, addCustomerError } = state;
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -63,7 +62,7 @@ function CreateCustomer(props) {
         <AlertMessage type={'danger'} message={'Failed to add the customer. Please try again.'} />
       )}
 
-      {(!addCustomerError && customerToEdit && !isRequestPending) && (
+      {(!addCustomerError && showSuccessNotification && !isRequestPending) && (
         <AlertMessage type={'success'} message={`Successfully added a new customer!`} />
       )}
 

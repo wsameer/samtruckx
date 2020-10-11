@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import '../style.css';
 import { LOCALSTORAGE_AUTH_KEY } from '../utils/constants';
-import FullPageSpinner from './FullPageSpinner';
+import { FullPageSpinner } from './shared';
 
 const AuthenticatedApp = React.lazy(() =>
   import(/* webpackPrefetch: true */ './AuthenticatedApp'),

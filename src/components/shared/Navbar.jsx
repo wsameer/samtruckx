@@ -1,5 +1,5 @@
 import React from 'react'
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 function Navbar() {
   const { state, dispatch } = React.useContext(AuthContext);

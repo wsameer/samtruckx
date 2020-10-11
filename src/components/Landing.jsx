@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import * as appApi from '../utils/api-handlers';
 import { AuthContext } from '../context/AuthContext'
 import { LOGIN, REGISTER } from '../utils/constants';
+import { AlertMessage, Footer } from './shared';
 import Login from './Login';
-import AlertMessage from './AlertMessage';
-import Footer from './Footer';
 
 function Landing() {
   const { state, dispatch } = React.useContext(AuthContext);

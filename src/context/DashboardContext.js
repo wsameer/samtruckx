@@ -37,6 +37,7 @@ function dashboardReducer(state, action) {
         ...state,
         isRequestPending: true,
         callToAction: 'create',
+        showSuccessNotification: false,
         addCustomerError: false
       };
     case 'ADD_CUSTOMER_SUCCESS':
@@ -46,6 +47,7 @@ function dashboardReducer(state, action) {
         isRequestPending: false,
         customerToEdit: payload,
         addCustomerError: false,
+        showSuccessNotification: true,
         customers: combinedCustomers // hack since the given API is not saving the new customer
       };
     case 'ADD_CUSTOMER_FAILURE':
@@ -53,7 +55,8 @@ function dashboardReducer(state, action) {
         ...state,
         addCustomerError: true,
         isRequestPending: false,
-        customerToEdit: null
+        customerToEdit: null,
+        showSuccessNotification: false
       };
 
     case 'EDIT_CUSTOMER_REQUEST':
@@ -61,7 +64,8 @@ function dashboardReducer(state, action) {
         ...state,
         editCustomerError: false,
         customerToEdit: payload,
-        isRequestPending: true
+        isRequestPending: true,
+        showSuccessNotification: false,
       };
     case 'EDIT_CUSTOMER_SUCCESS':
       let newData = state.customers.map((c, i) => {
@@ -77,13 +81,15 @@ function dashboardReducer(state, action) {
         editCustomerError: false,
         isRequestPending: false,
         customerToEdit: payload,
+        showSuccessNotification: true,
         customers: newData
       };
     case 'EDIT_CUSTOMER_FAILURE':
       return {
         ...state,
         editCustomerError: true,
-        isRequestPending: false
+        isRequestPending: false,
+        showSuccessNotification: false
       };
 
     case 'DELETE_CUSTOMER_REQUEST':
@@ -106,6 +112,15 @@ function dashboardReducer(state, action) {
         isRequestPending: false,
         deleteCustomerError: true
       }
+    case 'RESET_FLAGS':
+      return {
+        ...state,
+        addCustomerError: false,
+        editCustomerError: false,
+        deleteCustomerError: false,
+        isRequestPending: false,
+        showSuccessNotification: false
+      }
 
     default:
       return state;
@@ -116,6 +131,7 @@ const initialDashboardState = {
   customers: [],
   isFetching: false,
   hasError: false,
+  showSuccessNotification: false,
   addCustomerError: false,
   editCustomerError: false,
   deleteCustomerError: false,

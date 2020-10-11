@@ -1,8 +1,7 @@
 import React from 'react';
 import { DashboardProvider } from '../context/DashboardContext';
+import { Navbar, Footer } from './shared';
 import AppRoutes from './AppRoutes';
-import Footer from './Footer';
-import Navbar from './Navbar';
 
 function AuthenticatedApp() {
   return (

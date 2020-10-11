@@ -18,4 +18,3 @@ AlertMessage.propTypes = {
 };
 
 export default AlertMessage
-

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { DashboardContext } from '../context/DashboardContext';
 import CustomerCard from './CustomerCard';
-import AlertMessage from './AlertMessage';
+import { AlertMessage } from './shared';
 
 function CustomerDetails({ searchKeyword }) {
 

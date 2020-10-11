@@ -2,12 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import * as appApi from '../utils/api-handlers';
 import { DashboardContext } from '../context/DashboardContext';
-import AlertMessage from './AlertMessage';
-import CustomerForm from './CustomerForm';
+import { CustomerForm, AlertMessage } from './shared';
 
 function EditCustomer(props) {
   const { state, dispatch } = useContext(DashboardContext);
-  const { customerToEdit, isRequestPending, editCustomerError } = state;
+  const { customerToEdit, showSuccessNotification, isRequestPending, editCustomerError } = state;
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -82,7 +81,7 @@ function EditCustomer(props) {
         <AlertMessage type={'danger'} message={'Failed to update the customer. Please try again.'} />
       )}
 
-      {(!editCustomerError && customerToEdit && !isRequestPending) && (
+      {(!editCustomerError && showSuccessNotification && !isRequestPending) && (
         <AlertMessage type={'success'} message={`Successfully updated the customer!`} />
       )}
 

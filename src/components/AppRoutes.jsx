@@ -5,7 +5,7 @@ import {
   Redirect
 } from "react-router-dom";
 import Dashboard from './Dashboard';
-import NotFound from './NotFound';
+import NotFound from './shared/NotFound';
 import EditCustomer from './EditCustomer';
 import Landing from './Landing';
 import { AuthContext } from '../context/AuthContext';

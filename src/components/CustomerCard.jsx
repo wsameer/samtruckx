@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { withRouter } from 'react-router-dom';
 import { DashboardContext } from '../context/DashboardContext';
 import * as appApi from '../utils/api-handlers';
-import Modal from './Modal';
+import { Modal } from './shared';
 
 function CustomerCard(props) {
   const { dispatch } = useContext(DashboardContext);

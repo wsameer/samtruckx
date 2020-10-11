@@ -1,16 +1,15 @@
 import React, { useEffect, useContext, useState } from 'react'
-import * as appApi from '../utils/api-handlers';
-import { DashboardContext } from '../context/DashboardContext';
 import { AuthContext } from '../context/AuthContext';
-import Header from './Header';
+import { DashboardContext } from '../context/DashboardContext';
+import * as appApi from '../utils/api-handlers';
 import CustomerDetails from './CustomerDetails';
-import SearchBar from './SearchBar';
+import { Header, SearchBar } from './shared';
 
 function Dashboard(props) {
   const { state: authState } = useContext(AuthContext);
   const { state, dispatch } = useContext(DashboardContext);
   const [searchKeyword, setSearchKeyword] = useState('');
-  const { isFetching, totalPages, currentPage, } = state;
+  const { isFetching, totalPages, currentPage } = state;
 
   async function getCustomers(currentPage) {
     dispatch({ type: 'FETCH_CUSTOMERS_REQUEST' });
@@ -33,7 +32,7 @@ function Dashboard(props) {
       getCustomers(currentPage + 1);
     }
     return () => {
-      //cleanup
+      dispatch({ type: 'RESET_FLAGS' });
     }
   }, [authState.token, currentPage, totalPages]);
 
