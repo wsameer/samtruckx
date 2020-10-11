@@ -31,7 +31,6 @@ async function registerApi({ email, password }) {
 }
 
 async function getCustomers(pageNumber) {
-  console.log(`inside getCustomers`);
   try {
     const response = await fetch(`${SERVER_URL}/api/users?page=${pageNumber}`);
     return await response.json();
@@ -41,7 +40,6 @@ async function getCustomers(pageNumber) {
 }
 
 async function createCustomer(newCustomer) {
-  console.log(newCustomer);
   const payload = {
     email: newCustomer.email,
     name: newCustomer.name
@@ -61,7 +59,6 @@ async function createCustomer(newCustomer) {
 }
 
 async function updateCustomer(newCustomer, id) {
-  console.log(newCustomer);
   const payload = {
     email: newCustomer.email,
     name: newCustomer.name
@@ -80,4 +77,27 @@ async function updateCustomer(newCustomer, id) {
   }
 }
 
-export { loginApi, registerApi, getCustomers, createCustomer, updateCustomer };
+async function deleteCustomer(id) {
+  try {
+    const response = await fetch(`${SERVER_URL}/api/users/${id}`, {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (response.ok) {
+      return {
+        status: 200,
+        id: id
+      };
+    }
+
+    throw Error('Unable to delete the customer');
+
+  } catch (error) {
+    throw Error(error);
+  }
+}
+
+export { loginApi, registerApi, getCustomers, createCustomer, updateCustomer, deleteCustomer };
