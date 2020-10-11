@@ -40,7 +40,6 @@ function dashboardReducer(state, action) {
         addCustomerError: false
       };
     case 'ADD_CUSTOMER_SUCCESS':
-      console.log(payload);
       const combinedCustomers = state.customers.concat(payload);
       return {
         ...state,
@@ -65,9 +64,7 @@ function dashboardReducer(state, action) {
         isRequestPending: true
       };
     case 'EDIT_CUSTOMER_SUCCESS':
-      console.log(payload);
       let newData = state.customers.map((c, i) => {
-        console.log(c);
         if (c.id === payload.id) {
           c.first_name = payload.first_name;
           c.last_name = payload.last_name;
@@ -89,6 +86,27 @@ function dashboardReducer(state, action) {
         isRequestPending: false
       };
 
+    case 'DELETE_CUSTOMER_REQUEST':
+      return {
+        ...state,
+        isRequestPending: true,
+        deleteCustomerError: false
+      }
+    case 'DELETE_CUSTOMER_SUCCESS':
+      const updatedValues = state.customers.filter((c, i) => c.id !== payload.id);
+      return {
+        ...state,
+        isRequestPending: false,
+        deleteCustomerError: false,
+        customers: updatedValues
+      }
+    case 'DELETE_CUSTOMER_FAILURE':
+      return {
+        ...state,
+        isRequestPending: false,
+        deleteCustomerError: true
+      }
+
     default:
       return state;
   }
@@ -100,6 +118,7 @@ const initialDashboardState = {
   hasError: false,
   addCustomerError: false,
   editCustomerError: false,
+  deleteCustomerError: false,
   currentPage: 0,
   perPage: 6,
   total: 0,

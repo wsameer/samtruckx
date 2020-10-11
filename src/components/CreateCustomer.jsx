@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import * as appApi from '../utils/api-handlers';
 import { DashboardContext } from '../context/DashboardContext';
-import ErrorMessage from './ErrorMessage';
+import AlertMessage from './AlertMessage';
+import CustomerForm from './CustomerForm';
 
 function CreateCustomer(props) {
 
@@ -44,7 +45,6 @@ function CreateCustomer(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(firstName, lastName, email);
     const newCustomer = {
       name: `${firstName} ${lastName}`,
       email: email
@@ -60,72 +60,26 @@ function CreateCustomer(props) {
       </Link>
 
       {addCustomerError && (
-        <ErrorMessage type={'danger'} message={'Failed to add the customer. Please try again.'} />
+        <AlertMessage type={'danger'} message={'Failed to add the customer. Please try again.'} />
       )}
 
       {(!addCustomerError && customerToEdit && !isRequestPending) && (
-        <ErrorMessage type={'success'} message={`Successfully created a customer named ${customerToEdit.name}`} />
+        <AlertMessage type={'success'} message={`Successfully added a new customer!`} />
       )}
 
-      <div className="row">
-        <div className="col-md-6 offset-md-3">
-          <h2 className="mb-4 pb-2">Add Customer</h2>
-          <form>
-            <div className="form-group row">
-              <label htmlFor="firstName" className="col-sm-3 col-form-label">First Name</label>
-              <div className="col-sm-9">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="firstName"
-                  name="firstName"
-                  value={firstName}
-                  onChange={e => setFirstName(e.currentTarget.value)}
-                  placeholder="Enter first name"
-                />
-              </div>
-            </div>
+      <CustomerForm
+        isButtonDisabled={isButtonDisabled}
+        firstName={firstName}
+        lastName={lastName}
+        email={email}
+        buttonText={'Add Customer'}
+        title={'Add New Customer'}
+        setEmail={setEmail}
+        setFirstName={setFirstName}
+        setLastName={setLastName}
+        handleSubmit={handleSubmit}
+      />
 
-            <div className="form-group row">
-              <label htmlFor="lastName" className="col-sm-3 col-form-label">Last Name</label>
-              <div className="col-sm-9">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="lastName"
-                  name="lastName"
-                  value={lastName}
-                  onChange={e => setLastName(e.currentTarget.value)}
-                  placeholder="Enter last name"
-                />
-              </div>
-            </div>
-
-            <div className="form-group row">
-              <label htmlFor="email" className="col-sm-3 col-form-label">Email</label>
-              <div className="col-sm-9">
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  name="email"
-                  value={email}
-                  onChange={e => setEmail(e.currentTarget.value)}
-                  placeholder="Enter email"
-                />
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="btn btn-primary mt-2"
-              disabled={isButtonDisabled}>
-              Add New Customer
-            </button>
-          </form>
-        </div>
-      </div>
     </div>
   )
 }

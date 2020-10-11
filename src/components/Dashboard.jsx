@@ -10,7 +10,7 @@ function Dashboard(props) {
   const { state: authState } = useContext(AuthContext);
   const { state, dispatch } = useContext(DashboardContext);
   const [searchKeyword, setSearchKeyword] = useState('');
-  const { isFetching, totalPages, currentPage,  } = state;
+  const { isFetching, totalPages, currentPage, } = state;
 
   async function getCustomers(currentPage) {
     dispatch({ type: 'FETCH_CUSTOMERS_REQUEST' });
@@ -19,19 +19,16 @@ function Dashboard(props) {
       if (response.error) {
         throw Error(response.error);
       }
-      // console.log(response);
       dispatch({
         type: "FETCH_CUSTOMERS_SUCCESS",
         payload: response
       });
     } catch (error) {
-      // console.log(error);
       dispatch({ type: "FETCH_CUSTOMERS_FAILURE" });
     }
   }
 
   useEffect(() => {
-    console.log('here');
     if (currentPage < totalPages) {
       getCustomers(currentPage + 1);
     }
@@ -60,10 +57,10 @@ function Dashboard(props) {
           Add Customer
         </button>
       </div>
-      {
-        isFetching
-          ? <div>Loading...</div>
-          : <CustomerDetails searchKeyword={searchKeyword} />
+
+      {isFetching
+        ? <div>Loading...</div>
+        : <CustomerDetails searchKeyword={searchKeyword} />
       }
     </div>
   )

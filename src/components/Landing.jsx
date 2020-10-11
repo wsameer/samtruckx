@@ -3,7 +3,8 @@ import * as appApi from '../utils/api-handlers';
 import { AuthContext } from '../context/AuthContext'
 import { LOGIN, REGISTER } from '../utils/constants';
 import Login from './Login';
-import ErrorMessage from './ErrorMessage';
+import AlertMessage from './AlertMessage';
+import Footer from './Footer';
 
 function Landing() {
   const { state, dispatch } = React.useContext(AuthContext);
@@ -46,7 +47,7 @@ function Landing() {
         <div className="col-md-6 offset-md-3">
           <h1 className="text-center mb-5">Sam-TruckX</h1>
 
-          {error && <ErrorMessage type={'danger'} message={'Invalid Email or Password!'} />}
+          {error && <AlertMessage type={'danger'} message={'Invalid Email or Password!'} />}
 
           {selection === LOGIN && (
             <>
@@ -87,8 +88,8 @@ function Landing() {
             </>
           )}
         </div>
-
       </div>
+      <Footer />
     </div>
   )
 }

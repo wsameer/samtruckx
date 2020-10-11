@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import * as appApi from '../utils/api-handlers';
 import { DashboardContext } from '../context/DashboardContext';
-import ErrorMessage from './ErrorMessage';
+import AlertMessage from './AlertMessage';
+import CustomerForm from './CustomerForm';
 
 function EditCustomer(props) {
   const { state, dispatch } = useContext(DashboardContext);
@@ -15,7 +16,6 @@ function EditCustomer(props) {
   const isButtonDisabled = firstName === "" || lastName === "" || email === "";
 
   useEffect(() => {
-    console.log(customerToEdit);
     if (customerToEdit) {
       setFirstName(customerToEdit.first_name);
       setLastName(customerToEdit.last_name);
@@ -36,15 +36,12 @@ function EditCustomer(props) {
       if (response.error) {
         throw Error(response.error);
       }
-
       const data = {
         first_name: response.name.split(' ')[0],
         last_name: response.name.split(' ').slice(1).join(' '),
         email: response.email,
         id: customerToEdit.id
       };
-
-      console.log(response);
       dispatch({ type: "EDIT_CUSTOMER_SUCCESS", payload: data });
       clearInputs();
     } catch (error) {
@@ -54,7 +51,6 @@ function EditCustomer(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(firstName, lastName, email);
     const newCustomer = {
       name: `${firstName} ${lastName}`,
       email: email
@@ -83,80 +79,26 @@ function EditCustomer(props) {
       </Link>
 
       {editCustomerError && (
-        <ErrorMessage type={'danger'} message={'Failed to update the customer. Please try again.'} />
+        <AlertMessage type={'danger'} message={'Failed to update the customer. Please try again.'} />
       )}
 
       {(!editCustomerError && customerToEdit && !isRequestPending) && (
-        <ErrorMessage type={'success'} message={`Successfully updated the customer!`} />
+        <AlertMessage type={'success'} message={`Successfully updated the customer!`} />
       )}
 
-      <div className="row">
-        <div className="col-md-6 offset-md-3">
-          <h2 className="mb-4 pb-2">Edit Customer</h2>
-          <form>
-            <div className="form-group row">
-              <label
-                htmlFor="firstName"
-                className="col-sm-3 col-form-label">
-                First Name
-              </label>
-              <div className="col-sm-9">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="firstName"
-                  name="firstName"
-                  value={firstName}
-                  onChange={e => setFirstName(e.currentTarget.value)}
-                  placeholder="Enter first name"
-                />
-              </div>
-            </div>
+      <CustomerForm
+        isButtonDisabled={isButtonDisabled}
+        firstName={firstName}
+        lastName={lastName}
+        email={email}
+        buttonText={'Update'}
+        title={'Edit Customer'}
+        setEmail={setEmail}
+        setFirstName={setFirstName}
+        setLastName={setLastName}
+        handleSubmit={handleSubmit}
+      />
 
-            <div className="form-group row">
-              <label
-                htmlFor="lastName"
-                className="col-sm-3 col-form-label">
-                Last Name
-              </label>
-              <div className="col-sm-9">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="lastName"
-                  name="lastName"
-                  value={lastName}
-                  onChange={e => setLastName(e.currentTarget.value)}
-                  placeholder="Enter last name"
-                />
-              </div>
-            </div>
-
-            <div className="form-group row">
-              <label htmlFor="email" className="col-sm-3 col-form-label">Email</label>
-              <div className="col-sm-9">
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  name="email"
-                  value={email}
-                  onChange={e => setEmail(e.currentTarget.value)}
-                  placeholder="Enter email"
-                />
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="btn btn-primary mt-2"
-              disabled={isButtonDisabled}>
-              Update
-            </button>
-          </form>
-        </div>
-      </div>
     </div>
 
   )

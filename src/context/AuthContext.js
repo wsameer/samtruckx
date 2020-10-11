@@ -7,7 +7,6 @@ export const AuthContext = createContext();
 AuthContext.displayName = 'AuthContext';
 
 function authReducer(state, action) {
-  console.log(action);
   const { payload, type } = action;
 
   switch (type) {

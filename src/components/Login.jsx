@@ -2,8 +2,8 @@ import React from 'react'
 
 function Login({ onSubmitHandler, buttonText }) {
   const initialState = {
-    email: 'janet.weaver@reqres.in',
-    password: 'rootroot3',
+    email: '',
+    password: '',
     isSubmitting: false,
     hasError: false
   };
