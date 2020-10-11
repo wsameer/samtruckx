@@ -17,7 +17,7 @@ function AppRoutes() {
 
   return (
     <Switch>
-      <ProtectedLogin
+      <PublicRoutes
         exact
         path={["/", "/login"]}
         component={Landing}
@@ -68,7 +68,7 @@ function ProtectedRoutes({ isAuthenticated, component: Component, ...props }) {
   )
 }
 
-function ProtectedLogin({ isAuthenticated, component: Component, ...props }) {
+function PublicRoutes({ isAuthenticated, component: Component, ...props }) {
   return (
     <Route
       {...props}

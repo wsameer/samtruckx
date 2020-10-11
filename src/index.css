@@ -79,3 +79,12 @@ code {
 .close:focus {
   outline: none;
 }
+
+.full-page-error {
+  color: "red";
+  height: "100vh";
+  display: "flex";
+  flex-direction: "column";
+  justify-content: "center";
+  align-items: "center";
+}
