@@ -5,6 +5,11 @@ Build an application in React JS with following features using a mock API server
 - User registration using React hooks, Context API and `useReducer`
 - Session and Auth token management using localstorage
 
+## Assumptions
+- The apps only shows the fields which the API is returning.
+- Create New Customer API does not actually modifies the backend. Hence the new customers won't persist.
+- Same goes for Update and Dlete Customer API.
+
 ## Available Scripts
 
 In the project directory, you can run:
