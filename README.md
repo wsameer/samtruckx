@@ -1,4 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Build an application in React JS with following features using a mock API server (https://reqres.in)
+
+## Features
+- User authentication using React hooks, Context API and `useReducer`
+- User registration using React hooks, Context API and `useReducer`
+- Session and Auth token management using localstorage
 
 ## Available Scripts
 
@@ -21,7 +26,3 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
