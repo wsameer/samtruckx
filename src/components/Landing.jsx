@@ -46,7 +46,7 @@ function Landing() {
         <div className="col-md-6 offset-md-3">
           <h1 className="text-center mb-5">Sam-TruckX</h1>
 
-          {error && <ErrorMessage message={'Invalid Email or Password!'} />}
+          {error && <ErrorMessage type={'danger'} message={'Invalid Email or Password!'} />}
 
           {selection === LOGIN && (
             <>
@@ -60,7 +60,7 @@ function Landing() {
                 Don't have an account?
                 <button
                   type="button"
-                  className="btn btn-link"
+                  className="btn btn-link pt-0"
                   onClick={(e) => setSelection(REGISTER)}>
                   {REGISTER}
                 </button>
@@ -79,7 +79,7 @@ function Landing() {
                 Have an account?
                 <button
                   type="button"
-                  className="btn btn-link"
+                  className="btn btn-link pt-0"
                   onClick={(e) => setSelection(LOGIN)}>
                   {LOGIN}
                 </button>

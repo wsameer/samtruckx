@@ -9,6 +9,7 @@ import NotFound from './NotFound';
 import EditCustomer from './EditCustomer';
 import Landing from './Landing';
 import { AuthContext } from '../context/AuthContext';
+import CreateCustomer from './CreateCustomer';
 
 function AppRoutes() {
   const { state } = useContext(AuthContext);
@@ -16,10 +17,34 @@ function AppRoutes() {
 
   return (
     <Switch>
-      <ProtectedLogin exact path={["/", "/login"]} component={Landing} isAuthenticated={isAuthenticated} />
-      <ProtectedRoutes exact path="/dashboard" component={Dashboard} isAuthenticated={isAuthenticated} />
-      <ProtectedLogin exact path="/customer/:userId" component={EditCustomer} isAuthenticated={isAuthenticated} />
-      <Route path="*" component={NotFound} />
+      <ProtectedLogin
+        exact
+        path={["/", "/login"]}
+        component={Landing}
+        isAuthenticated={isAuthenticated}
+      />
+      <ProtectedRoutes
+        exact
+        path="/dashboard"
+        component={Dashboard}
+        isAuthenticated={isAuthenticated}
+      />
+      <ProtectedRoutes
+        exact
+        path="/customer/:custId"
+        component={EditCustomer}
+        isAuthenticated={isAuthenticated}
+      />
+      <ProtectedRoutes
+        exact
+        path="/create"
+        component={CreateCustomer}
+        isAuthenticated={isAuthenticated}
+      />
+      <Route
+        path="*"
+        component={NotFound}
+      />
     </Switch>
   );
 }
@@ -28,9 +53,9 @@ function ProtectedRoutes({ isAuthenticated, component: Component, ...props }) {
   return (
     <Route
       {...props}
-      render={() =>
+      render={(props) =>
         isAuthenticated
-          ? <Component />
+          ? <Component {...props} />
           : (
             <Redirect
               to={{
@@ -47,9 +72,9 @@ function ProtectedLogin({ isAuthenticated, component: Component, ...props }) {
   return (
     <Route
       {...props}
-      render={() =>
+      render={(props) =>
         !isAuthenticated
-          ? <Component />
+          ? <Component  {...props} />
           : (
             <Redirect
               to={{

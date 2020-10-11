@@ -1,16 +1,16 @@
-import React, { useEffect, useContext } from 'react'
-import Navbar from './Navbar';
+import React, { useEffect, useContext, useState } from 'react'
 import * as appApi from '../utils/api-handlers';
 import { DashboardContext } from '../context/DashboardContext';
 import { AuthContext } from '../context/AuthContext';
 import Header from './Header';
 import CustomerDetails from './CustomerDetails';
+import SearchBar from './SearchBar';
 
-function Dashboard() {
+function Dashboard(props) {
   const { state: authState } = useContext(AuthContext);
   const { state, dispatch } = useContext(DashboardContext);
-
-  const { isFetching, totalPages, currentPage } = state;
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const { isFetching, totalPages, currentPage,  } = state;
 
   async function getCustomers(currentPage) {
     dispatch({ type: 'FETCH_CUSTOMERS_REQUEST' });
@@ -31,22 +31,39 @@ function Dashboard() {
   }
 
   useEffect(() => {
+    console.log('here');
     if (currentPage < totalPages) {
       getCustomers(currentPage + 1);
     }
     return () => {
       //cleanup
     }
-  }, [authState.token, currentPage]);
+  }, [authState.token, currentPage, totalPages]);
+
+  function createNewCustomer() {
+    return props.history.push('/create');
+  };
 
   return (
     <div className="container">
-      <Navbar />
       <Header />
       <hr />
-      {isFetching
-        ? <div>Loading...</div>
-        : <CustomerDetails />
+      <div className="row mb-2">
+        <SearchBar
+          setSearchKeyword={setSearchKeyword}
+          searchKeyword={searchKeyword}
+        />
+        <button
+          type="button"
+          className="btn btn-success"
+          onClick={createNewCustomer}>
+          Add Customer
+        </button>
+      </div>
+      {
+        isFetching
+          ? <div>Loading...</div>
+          : <CustomerDetails searchKeyword={searchKeyword} />
       }
     </div>
   )
